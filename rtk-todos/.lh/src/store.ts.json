@@ -1,0 +1,46 @@
+{
+    "sourceFile": "src/store.ts",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 7,
+            "patches": [
+                {
+                    "date": 1646918728347,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1646918734710,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,1 +1,1 @@\n-import {} from '@redux'\n\\ No newline at end of file\n+import {} from '@reduxjs/toolkit/'\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1646918740451,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,1 +1,1 @@\n-import {} from '@reduxjs/toolkit/'\n\\ No newline at end of file\n+import {} from '@reduxjs/toolkit/query/react'\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1646918747017,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,1 +1,1 @@\n-import {} from '@reduxjs/toolkit/query/react'\n\\ No newline at end of file\n+import {} from \"@reduxjs/toolkit/query/react\";\n"
+                },
+                {
+                    "date": 1646918767548,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,1 +1,1 @@\n-import {} from \"@reduxjs/toolkit/query/react\";\n+import { createApi, fetchBaseQuery } from \"@reduxjs/toolkit/query/react\";\n"
+                },
+                {
+                    "date": 1646918793889,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,1 +1,2 @@\n import { createApi, fetchBaseQuery } from \"@reduxjs/toolkit/query/react\";\n+ \n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1646918847919,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -4,5 +4,6 @@\n   id: number;\n   text: string;\n   active: boolean;\n   done: boolean;\n-}\n\\ No newline at end of file\n+}\n+\n"
+                },
+                {
+                    "date": 1646918859347,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -6,5 +6,5 @@\n   active: boolean;\n   done: boolean;\n }\n \n-export const \n\\ No newline at end of file\n+export const t\n\\ No newline at end of file\n"
+                }
+            ],
+            "date": 1646918728347,
+            "name": "Commit-0",
+            "content": "import {} from '@redux'"
+        }
+    ]
+}
