@@ -1,0 +1,18 @@
+{
+    "sourceFile": "server/src/modules/todos/todo.controller.ts",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1646937925793,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1646937925793,
+            "name": "Commit-0",
+            "content": "import {\n  Controller,\n  Get,\n  Post,\n  Put,\n  Delete,\n  Body,\n  Param,\n  HttpCode,\n} from '@nestjs/common';\n\ninterface Todo {\n  id: number;\n  text: string;\n  active: boolean;\n  done: boolean;\n}\n\nlet todos: Todo[] = [\n  'NestJS',\n  'GraphQL',\n  'Apollo',\n  'TypeScript',\n  'React',\n  'Redux',\n  'React Query',\n  'Angular',\n  'Vue',\n  'D3',\n  'Svelte',\n  'SolidJS',\n  'NextJS',\n  'AWS',\n].map((text, index) => ({\n  id: index + 1,\n  text: `Learn ${text}`,\n  active: true,\n  done: false,\n}));\n@Controller('todos')\nexport class TodosController {\n  constructor() {}\n\n  @Get()\n  async index(): Promise<Todo[]> {\n    return todos.filter(({ active }) => active);\n  }\n\n  @Get(':id')\n  async show(@Param('id') id: string): Promise<Todo> {\n    return todos.find((todo) => todo.id === parseInt(id));\n  }\n\n  @Post()\n  async create(@Body() { text }: { text: string }): Promise<Todo> {\n    const todo = {\n      id: todos.length + 1,\n      text,\n      active: true,\n      done: false,\n    };\n    todos.push(todo);\n    return todo;\n  }\n\n  @Put(':id')\n  async update(@Param('id') id: string, @Body() data: Todo): Promise<Todo> {\n    todos = todos.map((todo) =>\n      todo.id === parseInt(id) ? { ...todo, ...data } : todo,\n    );\n\n    return data;\n  }\n\n  @Delete(':id')\n  @HttpCode(204)\n  async destroy(@Param('id') id: string): Promise<number> {\n    todos = todos.map((todo) =>\n      todo.id === parseInt(id) ? { ...todo, active: false } : todo,\n    );\n    return parseInt(id);\n  }\n}\n"
+        }
+    ]
+}

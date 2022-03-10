@@ -1,0 +1,18 @@
+{
+    "sourceFile": "rq-todos/src/lib/api.ts",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1646938213274,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1646938213274,
+            "name": "Commit-0",
+            "content": "export const BASE_URL = \"http://localhost:4000/todos\";\n\nexport interface Todo {\n  id: number;\n  text: string;\n  active: boolean;\n  done: boolean;\n}\n\nexport const getTodos = async (): Promise<Todo[]> =>\n  fetch(BASE_URL).then((res) => res.json());\n\nexport const getTodo = async (id: number): Promise<Todo> =>\n  fetch(`${BASE_URL}/${id}`).then((res) => res.json());\n\nexport const createTodo = async (text: string): Promise<Todo> =>\n  fetch(`${BASE_URL}`, {\n    method: \"POST\",\n    headers: {\n      \"Content-Type\": \"application/json\",\n    },\n    body: JSON.stringify({\n      text,\n    }),\n  }).then((res) => res.json());\n\nexport const updateTodo = async (todo: Todo): Promise<Todo> =>\n  fetch(`${BASE_URL}/${todo.id}`, {\n    method: \"PUT\",\n    headers: {\n      \"Content-Type\": \"application/json\",\n    },\n    body: JSON.stringify(todo),\n  }).then((res) => res.json());\n\nexport const deleteTodo = async (todo: Todo): Promise<Todo> =>\n  fetch(`${BASE_URL}/${todo.id}`, {\n    method: \"DELETE\",\n  }).then(() => todo);\n"
+        }
+    ]
+}

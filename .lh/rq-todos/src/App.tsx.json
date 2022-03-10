@@ -1,0 +1,26 @@
+{
+    "sourceFile": "rq-todos/src/App.tsx",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 2,
+            "patches": [
+                {
+                    "date": 1646938143728,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1646938525906,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,9 +7,9 @@\n } from \"react-query\";\n import { ReactQueryDevtools } from \"react-query/devtools\";\n import axios from \"axios\";\n \n-import { getTodos, Todo, updateTodo, deleteTodo, createTodo } from \"./lib/api\";\n+import { getTodos, Todo, updateTodo, deleteTodo, createTodo } from \"./lib/ap\"\n \n export const axiosClient = axios.create({\n   baseURL: \"http://localhost:4000/\",\n });\n"
+                },
+                {
+                    "date": 1646938533422,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,9 +7,9 @@\n } from \"react-query\";\n import { ReactQueryDevtools } from \"react-query/devtools\";\n import axios from \"axios\";\n \n-import { getTodos, Todo, updateTodo, deleteTodo, createTodo } from \"./lib/ap\"\n+import { getTodos, Todo, updateTodo, deleteTodo, createTodo } from \"./lib/api\";\n \n export const axiosClient = axios.create({\n   baseURL: \"http://localhost:4000/\",\n });\n"
+                }
+            ],
+            "date": 1646938143728,
+            "name": "Commit-0",
+            "content": "import React, { useRef } from \"react\";\nimport {\n  useQuery,\n  useMutation,\n  QueryClientProvider,\n  QueryClient,\n} from \"react-query\";\nimport { ReactQueryDevtools } from \"react-query/devtools\";\nimport axios from \"axios\";\n\nimport { getTodos, Todo, updateTodo, deleteTodo, createTodo } from \"./lib/api\";\n\nexport const axiosClient = axios.create({\n  baseURL: \"http://localhost:4000/\",\n});\n\nconst queryClient = new QueryClient();\n\nfunction TodoApp() {\n  // const { data: todos } = useQuery<Todo[]>(\"todos\", getTodos, {\n  //   initialData: [],\n  // });\n  const { data: todos } = useQuery<Todo[]>(\n    \"todos\",\n    async () => (await axiosClient.get<Todo[]>(\"/todos\")).data,\n    {\n      initialData: [],\n    }\n  );\n  // const updateMutation = useMutation(updateTodo, {\n  //   onSuccess: () => queryClient.invalidateQueries(\"todos\"),\n  // });\n  const updateMutation = useMutation<Response, unknown, Todo>(\n    (todo) => axiosClient.put(`/todos/${todo.id}`, todo),\n    {\n      onSettled: () => queryClient.invalidateQueries(\"todos\"),\n    }\n  );\n\n  // const deleteMutation = useMutation(deleteTodo, {\n  //   onSuccess: () => queryClient.invalidateQueries(\"todos\"),\n  // });\n  const deleteMutation = useMutation<Response, unknown, Todo>(\n    ({ id }) => axiosClient.delete(`/todos/${id}`),\n    {\n      onSettled: () => queryClient.invalidateQueries(\"todos\"),\n    }\n  );\n\n  // const createMutation = useMutation(createTodo, {\n  //   onSuccess: () => queryClient.invalidateQueries(\"todos\"),\n  // });\n  const createMutation = useMutation<Response, unknown, { text: string }>(\n    (data) => axiosClient.post(\"/todos\", data),\n    {\n      onSettled: () => {\n        queryClient.invalidateQueries(\"todos\");\n        textRef.current!.value = \"\";\n      },\n    }\n  );\n\n  const textRef = useRef<HTMLInputElement>(null);\n\n  return (\n    <div className=\"App\">\n      <div className=\"todos\">\n        {todos?.map((todo) => (\n          <React.Fragment key={todo.id}>\n            <div>\n              <input\n                type=\"checkbox\"\n                checked={todo.done}\n                onChange={() => {\n                  updateMutation.mutate({ ...todo, done: !todo.done });\n                }}\n              />\n              <span>{todo.text}</span>\n            </div>\n            <button\n              onClick={() => {\n                deleteMutation.mutate(todo);\n              }}\n            >\n              Delete\n            </button>\n          </React.Fragment>\n        ))}\n      </div>\n      <div className=\"add\">\n        <input type=\"text\" ref={textRef} />\n        <button\n          onClick={() => {\n            createMutation.mutate({ text: textRef.current!.value ?? \"\" });\n          }}\n        >\n          Add\n        </button>\n      </div>\n    </div>\n  );\n}\n\nfunction App() {\n  return (\n    <QueryClientProvider client={queryClient}>\n      <TodoApp />\n      <ReactQueryDevtools />\n    </QueryClientProvider>\n  );\n}\n\nexport default App;\n"
+        }
+    ]
+}
